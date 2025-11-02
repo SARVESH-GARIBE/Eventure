@@ -1,267 +1,285 @@
-# Eventure Frontend
+# 🎉 Eventure - Event Discovery App
 
-Frontend application for Eventure - Mini Event Discovery App built with React, TypeScript, Vite, and Tailwind CSS.
+A simple and modern web app to discover and create local events. Built with React, Node.js, and MongoDB.
 
-## 📋 Table of Contents
+## ✨ What is Eventure?
 
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Setup & Installation](#setup--installation)
-- [Environment Variables](#environment-variables)
-- [Features Breakdown](#features-breakdown)
-- [Deployment](#deployment)
-- [Challenges & Solutions](#challenges--solutions)
+Eventure helps you:
 
-## ✨ Features
+- 🔍 **Find events** near you
+- ➕ **Create new events**
+- 📅 **View event details** (date, location, participants)
+- 🔎 **Search and filter** events by location or keywords
+- 🗑️ **Delete events** safely with confirmation dialog
 
-- 🎯 Event discovery with search and filters
-- 📱 Responsive design (mobile-first)
-- 🎨 Modern UI with Tailwind CSS
-- 🔍 Real-time search by title, description, and location
-- 📍 Optional distance calculation using geolocation
-- 🎉 Toast notifications for user feedback
-- ⚡ Fast loading with Vite
-- 🛡️ TypeScript for type safety
+## 🚀 Quick Start
+
+### What You Need First
+
+1. **Node.js** (v18+) - [Download here](https://nodejs.org/)
+2. **MongoDB** - Use local MongoDB or free [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+
+### Step 1: Start the Backend
+
+```bash
+# Open Terminal/PowerShell
+cd eventure-backend
+
+# Install packages (first time only)
+npm install
+
+# Start the server
+npm run dev
+```
+
+✅ You should see: `🚀 Server running on port 5000`
+
+### Step 2: Start the Frontend
+
+Open a **new** terminal window:
+
+```bash
+# Navigate to frontend folder
+cd eventure-frontend
+
+# Install packages (first time only)
+npm install
+
+# Start the app
+npm run dev
+```
+
+✅ Open `http://localhost:5173` in your browser!
+
+## 📁 Project Structure
+
+```
+Eventure/
+├── eventure-backend/    # Server (Node.js + Express)
+│   └── src/            # Backend code
+│
+├── eventure-frontend/   # Website (React)
+│   └── src/            # Frontend code
+│
+└── assets/             # Screenshots
+```
 
 ## 🛠️ Tech Stack
 
-- **React 18** - UI library
-- **TypeScript** - Type-safe JavaScript
-- **Vite** - Build tool and dev server
-- **React Router** - Client-side routing
-- **Axios** - HTTP client
-- **Tailwind CSS** - Utility-first CSS framework
-- **React Hot Toast** - Toast notifications
+**Frontend (Website):**
 
-## 🚀 Setup & Installation
+- React - UI library
+- TypeScript - Type safety
+- Tailwind CSS - Styling
+- Vite - Build tool
 
-### Prerequisites
+**Backend (Server):**
 
-- Node.js (v18 or higher)
-- npm or yarn
-- Backend API running (see [eventure-backend](../eventure-backend/README.md))
+- Node.js - Runtime
+- Express - Web framework
+- MongoDB - Database
+- TypeScript - Type safety
 
-### Installation Steps
+## 📝 Setting Up MongoDB
 
-1. **Navigate to the frontend directory:**
-   ```bash
-   cd eventure-frontend
+### Option 1: MongoDB Atlas (Recommended - Free Cloud Database)
+
+1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+2. Sign up for free account
+3. Create a cluster (free tier available)
+4. Get your connection string
+5. Add it to `eventure-backend/.env`:
+   ```
+   MONGO_URI=your-connection-string-here
    ```
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+### Option 2: Local MongoDB
 
-3. **Create a `.env` file** (optional):
-   ```bash
-   VITE_API_URL=http://localhost:5000/api
-   ```
+1. Install MongoDB on your computer
+2. Start MongoDB service
+3. Use default connection: `mongodb://localhost:27017/eventure`
 
-4. **Start the development server:**
-   ```bash
-   npm run dev
-   ```
+## ⚙️ Configuration Files
 
-   The app will open at `http://localhost:5173`
+### Backend `.env` file
 
-5. **Build for production:**
-   ```bash
-   npm run build
-   ```
-
-   The production build will be in the `dist/` directory.
-
-6. **Preview production build:**
-   ```bash
-   npm run preview
-   ```
-
-## 🔐 Environment Variables
-
-Create a `.env` file in the root directory:
+Create `eventure-backend/.env`:
 
 ```env
-# Backend API URL
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/eventure
+NODE_ENV=development
+FRONTEND_URL=http://localhost:5173
+```
+
+### Frontend `.env` file (Optional)
+
+Create `eventure-frontend/.env`:
+
+```env
 VITE_API_URL=http://localhost:5000/api
-
-# For production, use your deployed backend URL:
-# VITE_API_URL=https://your-backend.onrender.com/api
 ```
 
-## 📱 Features Breakdown
+## 🎯 How to Use
 
-### 1. Event List Page (`/`)
+1. **View Events**: Home page shows all available events
+2. **Search**: Use search bar to find events by title or description
+3. **Filter**: Filter events by location
+4. **Create Event**: Click "Create Event" button to add new events
+5. **View Details**: Click any event card to see full details
+6. **Delete Event**: See the [Delete Functionality](#-delete-functionality) section below for details
 
-- Displays all events in a responsive grid
-- Search bar for filtering by title/description
-- Location filter
-- Optional distance calculation (requires location permission)
-- Loading and error states
-- Empty state when no events found
+## 🗑️ Delete Functionality
 
-### 2. Event Detail Page (`/events/:id`)
+Eventure includes a safe and intuitive delete feature for managing events:
 
-- Full event information
-- Formatted date and time
-- Participant count with progress bar
-- Location information
-- Back navigation
-- Loading and error states
+### Features:
 
-### 3. Create Event Page (`/create`)
+- **Confirmation Dialog**: A confirmation popup prevents accidental deletions
+- **Visual Feedback**: Loading spinner shows while the event is being deleted
+- **Success Notification**: Toast notification confirms successful deletion
+- **Auto-redirect**: Automatically returns to the events list after deletion
+- **Error Handling**: Clear error messages if deletion fails
 
-- Form with validation
-- Real-time input validation
-- Required fields marked with *
-- Date picker for event date/time
-- Success/error notifications
-- Cancel button to return to events list
+### How to Delete an Event:
 
-### 4. Navigation
+1. Navigate to any event's detail page by clicking on an event card
+2. Scroll down to the bottom of the event details
+3. Click the red **"Delete Event"** button
+4. Confirm the deletion in the popup dialog
+5. The event will be permanently removed and you'll be redirected to the events list
 
-- Sticky header
-- Brand logo/name
-- Navigation links
-- "Create Event" button
+![Event Detail with Delete Button](./assets/event-detail3.png)
+_Event detail page showing the delete button (bottom right)_
 
-## 🚢 Deployment
+### Technical Details:
 
-### Deploying to Vercel
+- **Backend API**: `DELETE /api/events/:id`
+- **Safety**: Confirmation required before deletion
+- **Response**: Returns success message and deleted event data
+- **Error Handling**: Handles invalid IDs and network errors gracefully
 
-1. **Install Vercel CLI** (optional):
-   ```bash
-   npm i -g vercel
-   ```
+## 📸 Screenshots
 
-2. **Deploy:**
-   ```bash
-   vercel
-   ```
+Here are screenshots showcasing the Eventure application:
 
-   Or connect your GitHub repository to Vercel:
-   - Go to [vercel.com](https://vercel.com)
-   - Import your repository
-   - Configure build settings:
-     - Build Command: `npm run build`
-     - Output Directory: `dist`
-   - Add environment variable:
-     - `VITE_API_URL` - Your backend API URL
+### 🏠 Home Page
 
-3. **Update backend CORS** to allow your Vercel domain
+![Home Page](./assets/home.png)
+_Event discovery page with search and filter functionality - Shows empty state with helpful message when no events are found_
 
-### Alternative: Netlify
+### ➕ Create Event Form
 
-1. Build the project: `npm run build`
-2. Deploy the `dist` folder to Netlify
-3. Add environment variables in Netlify dashboard
-4. Update backend CORS settings
+![Create Event 1](./assets/create-event1.png)
+_Create event form - Initial view with all input fields_
 
-## 💡 Challenges & Solutions
+![Create Event 2](./assets/create-event2.png)
+_Create event form - Example with filled data showing form validation_
 
-### Challenge 1: Distance Calculation
-**Problem:** Calculating distance between user location and event locations.
+### 📅 Event Detail Pages
 
-**Solution:** 
-- Used browser Geolocation API to get user coordinates
-- Implemented Haversine formula for distance calculation
-- Created `geocodeLocation()` function placeholder for future geocoding API integration
-- Made distance feature optional (gracefully fails if location is denied)
+![Event Detail 1](./assets/event-detail1.png)
+_Event detail page - Complete event information display_
 
-### Challenge 2: State Management
-**Problem:** Managing search/filter state across components.
+![Event Detail 2](./assets/event-detail2.png)
+_Event detail page - Shows event metadata and participant information_
 
-**Solution:** Used React's built-in state management with `useState` and passed props down. For a larger app, Context API or a state management library would be better.
+![Event Detail 3](./assets/event-detail3.png)
+_Event detail page - Displays the red "Delete Event" button at the bottom right, demonstrating the delete functionality_
 
-### Challenge 3: Type Safety with API Responses
-**Problem:** Ensuring type safety when consuming API responses.
+### 📱 Mobile Responsive View
 
-**Solution:** Created TypeScript interfaces matching backend models and API response structures in `src/types/event.ts`.
-
-### Challenge 4: Loading States
-**Problem:** Providing good UX during API calls.
-
-**Solution:** Implemented loading spinners, error messages, and empty states for all data-fetching components.
-
-### Challenge 5: Responsive Design
-**Problem:** Making the app work well on all screen sizes.
-
-**Solution:** Used Tailwind CSS's responsive utilities with mobile-first approach. Grid layouts adapt from 1 column (mobile) to 3 columns (desktop).
-
-## 🤖 AI Tools Used
-
-- **ChatGPT/Claude** - Component structure, React patterns, and styling guidance
-- **GitHub Copilot** - Code completion and React hooks
-- **Tailwind CSS Documentation** - Utility classes and responsive design
-- **React Documentation** - Best practices and hooks
-
-## 📝 Project Structure
-
-```
-eventure-frontend/
-├── src/
-│   ├── components/
-│   │   ├── EventCard.tsx        # Event card component
-│   │   ├── EventList.tsx        # Events list with search
-│   │   ├── EventDetail.tsx      # Single event detail page
-│   │   └── CreateEventForm.tsx  # Create event form
-│   ├── services/
-│   │   └── api.ts              # API service functions
-│   ├── types/
-│   │   └── event.ts            # TypeScript type definitions
-│   ├── utils/
-│   │   └── distance.ts         # Distance calculation utilities
-│   ├── App.tsx                 # Main app component with routing
-│   ├── main.tsx                # React entry point
-│   └── index.css               # Global styles and Tailwind
-├── index.html
-├── package.json
-├── tailwind.config.js
-├── vite.config.ts
-├── tsconfig.json
-└── README.md
-```
-
-## 🎨 Styling
-
-The app uses Tailwind CSS with custom configuration:
-
-- **Primary Color**: Blue (`primary-600`)
-- **Card Design**: White cards with shadow and hover effects
-- **Responsive Breakpoints**: 
-  - Mobile: Default (< 768px)
-  - Tablet: `md:` (≥ 768px)
-  - Desktop: `lg:` (≥ 1024px)
-
-### Custom CSS Classes
-
-Defined in `src/index.css`:
-- `.btn-primary` - Primary button style
-- `.btn-secondary` - Secondary button style
-- `.card` - Card container style
-- `.input-field` - Input field style
-
-## 🔧 Development
-
-### Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-
-### Code Style
-
-- TypeScript strict mode enabled
-- ESLint for code quality
-- Functional components with hooks
-- Meaningful component and variable names
-- Comments for complex logic
-
-## 📄 License
-
-ISC
+![Mobile View](./assets/mobile-view.png)
+_Responsive design on mobile devices - iPhone 14 Pro Max view showing the mobile-optimized layout with delete button visible_
 
 ---
 
-Built with ❤️ for Slanup Internship Challenge
+💡 **Note**: All screenshots are available in the [`assets/`](./assets/) folder. The delete functionality is visible in the event detail screenshots.
+
+## 🐛 Troubleshooting
+
+### Backend won't start?
+
+- Make sure MongoDB is running
+- Check if port 5000 is available
+- Verify `.env` file exists
+
+### Frontend can't connect?
+
+- Make sure backend is running on port 5000
+- Check browser console for errors
+- Verify `VITE_API_URL` in frontend `.env`
+
+### MongoDB connection error?
+
+- Check your connection string
+- For Atlas: verify IP whitelist settings
+- Make sure MongoDB service is running (if local)
+
+See [`TROUBLESHOOTING.md`](./TROUBLESHOOTING.md) for more help.
+
+## 📚 Available Scripts
+
+### Backend
+
+```bash
+npm run dev    # Start development server
+npm run build  # Build for production
+npm start      # Run production build
+```
+
+### Frontend
+
+```bash
+npm run dev     # Start development server
+npm run build   # Build for production
+npm run preview # Preview production build
+```
+
+## 🚢 Deployment
+
+### Backend → Render
+
+1. Connect GitHub repository
+2. Set build command: `npm install && npm run build`
+3. Set start command: `npm start`
+4. Add environment variables
+
+### Frontend → Vercel
+
+1. Connect GitHub repository
+2. Set build command: `npm run build`
+3. Set output directory: `dist`
+4. Add environment variable: `VITE_API_URL`
+
+## 📖 Documentation
+
+- **Backend Details**: [`eventure-backend/README.md`](./eventure-backend/README.md)
+- **Frontend Details**: [`eventure-frontend/README.md`](./eventure-frontend/README.md)
+- **Setup Guide**: [`SETUP_GUIDE.md`](./SETUP_GUIDE.md)
+- **GitHub Setup**: [`GITHUB_SETUP.md`](./GITHUB_SETUP.md)
+
+## 🎓 What I Learned
+
+- Full-stack development with MERN stack
+- RESTful API design
+- TypeScript for both frontend and backend
+- MongoDB database design
+- Error handling and validation
+- React hooks and modern patterns
+
+## 🤝 Contributing
+
+This is a portfolio project, but suggestions are welcome!
+
+---
+
+## 💡 Need Help?
+
+1. Check the [Troubleshooting Guide](./TROUBLESHOOTING.md)
+2. Review the [Setup Guide](./SETUP_GUIDE.md)
+3. Read the detailed README files in `eventure-backend/` and `eventure-frontend/`
+
+---
+
+_A simple, clean event discovery application demonstrating full-stack development skills._
